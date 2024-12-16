@@ -4,7 +4,7 @@ import HeroData from "@/components/types/hero";
 export default function Hero({ item }: { item: HeroData }) {
     return (
         <div className="relative aspect-square sm:h-[28rem] lg:h-[32rem] w-full">
-        <CustomImage alt={"Hero Image"} className="object-cover" src={item.data.image.url} fill={true}/>
+        <CustomImage priority={true} alt={"Hero Image"} className="object-cover" src={item.data.image.url} fill={true}/>
         </div>
     )
 }
