@@ -32,7 +32,7 @@ export interface BlocksResponse {
     data: {
         id: number;
         documentId: string;
-        text: string;
+        editor: string;
         createdAt: string;
         updatedAt: string;
         publishedAt: string;
