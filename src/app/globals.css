@@ -31,17 +31,17 @@ h1, strong {
 
   h2 {
     font-size: 1.5rem !important;
-    line-height: 1.75rem;
+    line-height: 1.15rem;
   }
 
   h3 {
     font-size: 1.35rem !important;
-    line-height: 1.5rem;
+    line-height: 1.1rem;
   }
 
   h4, h5, h6 {
     font-size: 1.25rem !important;
-    line-height: 1.5rem;
+    line-height: 1.1rem;
   }
 
   body {
