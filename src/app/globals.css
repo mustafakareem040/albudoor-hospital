@@ -6,6 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0.35rem;
 }
+
 .image-style-side {
   float: right;
   margin-top: 0 !important;
@@ -13,21 +14,51 @@ body {
   margin-left: 2rem;
   max-width: 768px;
 }
+
 .image img {
   border-radius: 10px;
 }
+
 h1, strong {
   font-weight: 600 !important;
 }
 
 @media (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.25 !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.35rem !important;
+    line-height: 1.5rem;
+  }
+
+  h4, h5, h6 {
+    font-size: 1.25rem !important;
+    line-height: 1.5rem;
+  }
+
+  body {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
   figure {
     width: 100% !important;
   }
+
   .image-style-side {
-    transform: translateY(-0);
+    transform: translateY(0);
   }
 }
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -87,15 +118,19 @@ h1, strong {
   * {
     @apply border-border;
   }
+
   span {
-    @apply font-poppins font-medium;
+    @apply font-medium;
   }
+
   h1 {
-    @apply font-semibold font-poppins;
+    @apply font-semibold ;
   }
+
   h2, h3, h4, h5, h6 {
-    @apply font-poppins font-medium;
+    @apply font-medium;
   }
+
   body {
     @apply bg-background text-foreground;
   }

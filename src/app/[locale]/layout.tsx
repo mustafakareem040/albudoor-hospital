@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, IBM_Plex_Sans, Quicksand } from "next/font/google";
+import { Poppins, IBM_Plex_Sans, Quicksand, Noto_Kufi_Arabic } from "next/font/google";
 import "../globals.css";
 import React from "react";
 import Head from "next/head";
@@ -21,6 +21,13 @@ const ibmPlexSans = IBM_Plex_Sans({
 const quickSand = Quicksand({
     variable: "--font-quicksand",
     subsets: ["latin"],
+    display: "swap",
+});
+
+const notoKufiArabic = Noto_Kufi_Arabic({
+    weight: ['400', '500', '600', '700'],
+    variable: "--font-noto-kufi-arabic",
+    subsets: ["arabic"],
     display: "swap",
 });
 
@@ -67,8 +74,10 @@ export default async function RootLayout({
     const p = await params;
     const {locale} = await p;
     const lang = await locale || 'en';
+    const isArabic = lang === 'ar';
+
     return (
-        <html lang={lang}>
+        <html lang={lang} dir={isArabic ? 'rtl' : 'ltr'}>
         <Head>
             <link rel="shortcut icon" href="/favicon.ico"/>
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
@@ -76,7 +85,7 @@ export default async function RootLayout({
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
         </Head>
         <body
-            className={`${poppins.variable} ${ibmPlexSans.variable} ${quickSand.variable} antialiased`}
+            className={`${poppins.variable} ${ibmPlexSans.variable} ${quickSand.variable} ${notoKufiArabic.variable} ${isArabic ? 'font-kufi' : 'font-poppins'} antialiased`}
         >
         {children}
         </body>

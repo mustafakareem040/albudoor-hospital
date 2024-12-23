@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import HeaderData from "@/components/types/header";
 import CustomImage from "@/components/utils/image";
-import { ChevronDown, Globe } from "lucide-react";
+import { ChevronDown, Globe, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -14,8 +14,14 @@ import {
 import { MobileMenu } from "@/components/mobile-menu";
 
 const Header = ({ items }: { items: HeaderData }) => {
+    const isArabic = items.data.locale === 'ar';
+    const languageText = isArabic ? 'اللغة' : 'Language';
+
     return (
-        <header className="flex py-4 items-center w-full justify-between px-4 lg:justify-around">
+        <header className={cn(
+            "flex py-4 items-center w-full justify-between px-4 lg:justify-around",
+            isArabic && "flex-row-reverse"
+        )}>
             <Link href="/" aria-label="Home">
                 <CustomImage
                     src={items.data.logo.url}
@@ -27,7 +33,10 @@ const Header = ({ items }: { items: HeaderData }) => {
                 />
             </Link>
 
-            <nav className="hidden lg:flex items-center space-x-8" role="navigation">
+            <nav className={cn(
+                "hidden lg:flex items-center",
+                isArabic ? "space-x-reverse space-x-8" : "space-x-8"
+            )} dir={isArabic ? 'rtl' : 'ltr'} role="navigation">
                 {items.data.navbar.map((item) => (
                     item.children?.length ? (
                         <div key={item.id} className="group relative">
@@ -40,9 +49,17 @@ const Header = ({ items }: { items: HeaderData }) => {
                                 )}
                             >
                                 {item.title}
-                                <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                                <ChevronDown className={cn(
+                                    "h-4 w-4 transition-transform duration-200 group-hover:rotate-180",
+                                    isArabic ? "mr-1" : "ml-1"
+                                )} />
                             </button>
-                            <div className="absolute z-50 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 mt-1 w-48 origin-top-right transition-all duration-300 ease-out">
+                            <div className={cn(
+                                "absolute z-50 invisible opacity-0 translate-y-2 group-hover:visible",
+                                "group-hover:opacity-100 group-hover:translate-y-0 mt-1 w-48",
+                                "origin-top-right transition-all duration-300 ease-out",
+                                isArabic && "right-0"
+                            )}>
                                 <div className="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
                                     {item.children.map((child) => (
                                         <Link
@@ -78,16 +95,22 @@ const Header = ({ items }: { items: HeaderData }) => {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="font-medium text-lg">
-                            Language
+                            {languageText}
                             <ChevronDown className="ml-2 h-4 w-4"/>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem>
-                            <Link href="/en" className="w-full" prefetch={true}>English</Link>
+                            <Link href="/en" className="w-full flex justify-between items-center" prefetch={true}>
+                                English
+                                {!isArabic && <Check className="h-4 w-4" />}
+                            </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <Link href="/ar" className="w-full" prefetch={true}>العربية</Link>
+                            <Link href="/ar" className="w-full flex justify-between items-center" prefetch={true}>
+                                العربية
+                                {isArabic && <Check className="h-4 w-4" />}
+                            </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -6,15 +6,22 @@ import CustomImage from "@/components/utils/image";
 const Footer: FC<{ data: FooterResponse }> = ({ data }) => {
     const locationLines = data.data.locations.split('\n');
     const contactLines = data.data.contacts.split('\n');
+    const isArabic = data.data.locale === 'ar';
 
     const isEmail = (text: string) => text.includes('@');
     const isPhone = (text: string) => text.includes('+');
 
+    const translations = {
+        mission: isArabic ? 'مهمتنا' : 'Our Mission',
+        location: isArabic ? 'الموقع' : 'Location',
+        contactUs: isArabic ? 'اتصل بنا' : 'Contact Us',
+        rights: isArabic ? 'شركة الارض الرقمية, جميع الحقوق محفوظة' : 'Digital Land, All Rights Reserved'
+    };
+
     return (
-        <footer className="bg-white px-4 py-8 md:px-12 lg:px-16 border-t">
+        <footer className="bg-white px-4 py-8 md:px-12 lg:px-16 border-t" dir={isArabic ? 'rtl' : 'ltr'}>
             <div className="mx-auto max-w-7xl">
                 <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-12">
-                    {/* Logo and Title Section */}
                     <div className="lg:col-span-3">
                         <div className="flex items-center h-20 gap-4">
                             <Link
@@ -39,44 +46,36 @@ const Footer: FC<{ data: FooterResponse }> = ({ data }) => {
                         </div>
                     </div>
 
-                    {/* Mission Section */}
                     <div className="lg:col-span-5">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Mission</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">{translations.mission}</h3>
                         <p className="font-lexend text-base leading-relaxed text-gray-600">
                             {data.data.description}
                         </p>
                     </div>
 
-                    {/* Contact Information */}
                     <div className="lg:col-span-4 space-y-8">
                         <div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Location</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">{translations.location}</h3>
                             <div className="space-y-2 text-gray-600">
                                 {locationLines.map((line, index) => (
-                                    <p key={index} className="text-base leading-relaxed">
-                                        {line}
-                                    </p>
+                                    <p key={index} className="text-base leading-relaxed">{line}</p>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Us</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">{translations.contactUs}</h3>
                             <div className="space-y-2">
                                 {contactLines.map((line, index) => (
                                     <p key={index} className="text-base">
                                         {isEmail(line) ? (
-                                            <a
-                                                href={`mailto:${line.trim()}`}
-                                                className="text-gray-600 hover:text-blood transition-colors duration-300"
-                                            >
+                                            <a href={`mailto:${line.trim()}`}
+                                               className="text-gray-600 hover:text-blood transition-colors duration-300">
                                                 {line}
                                             </a>
                                         ) : isPhone(line) ? (
-                                            <a
-                                                href={`tel:${line.replace(/\s/g, '')}`}
-                                                className="text-gray-600 hover:text-blood transition-colors duration-300"
-                                            >
+                                            <a href={`tel:${line.replace(/\s/g, '')}`}
+                                               className="text-gray-600 hover:text-blood transition-colors duration-300">
                                                 {line}
                                             </a>
                                         ) : (
@@ -89,14 +88,12 @@ const Footer: FC<{ data: FooterResponse }> = ({ data }) => {
                     </div>
                 </div>
 
-                {/* Copyright and Social Media Section */}
                 <div className="mt-12 pt-8 border-t border-gray-100">
                     <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:justify-between">
                         <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} {data.data.title}. All Rights Reserved.
+                            © {new Date().getFullYear()} {translations.rights}.
                         </p>
 
-                        {/* Social Media */}
                         <div className="flex items-center gap-6">
                             {data.data.socialMedia.map((social) => (
                                 <Link

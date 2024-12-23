@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from "next/link";
-import { Globe, Menu } from "lucide-react";
+import { Globe, Menu, Check } from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -16,23 +16,25 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 import HeaderData from "@/components/types/header";
 
 export const MobileMenu = ({ items }: { items: HeaderData }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const isArabic = items.data.locale === 'ar';
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-                <button className="lg:hidden">
+                <button className={cn("lg:hidden", isArabic && "order-first")}>
                     <Menu width={32} height={32}/>
                 </button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] p-0 overflow-y-auto"> {/* Apply overflow here */}
+            <SheetContent side={isArabic ? "right" : "left"} className="w-[300px] p-0 overflow-y-auto" dir={isArabic ? 'rtl' : 'ltr'}>
                 <SheetHeader className="p-4 border-b">
-                    <SheetTitle>Menu</SheetTitle>
+                    <SheetTitle>{isArabic ? 'القائمة' : 'Menu'}</SheetTitle>
                 </SheetHeader>
-                <div className="py-4"> {/* Remove h-[100vh] here */}
+                <div className="py-4">
                     <Accordion type="single" collapsible>
                         {items.data.navbar.map((item) => (
                             item.children?.length ? (
@@ -41,7 +43,7 @@ export const MobileMenu = ({ items }: { items: HeaderData }) => {
                                         {item.title}
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        <div className="pl-4">
+                                        <div className={isArabic ? "pr-4" : "pl-4"}>
                                             {item.children.map((child) => (
                                                 <Link
                                                     key={child.id}
@@ -68,10 +70,27 @@ export const MobileMenu = ({ items }: { items: HeaderData }) => {
                             )
                         ))}
                         <div className="px-4 pt-4 border-t mt-4">
-                            <div className="flex items-center gap-2">
-                                <Globe className="h-5 w-5"/>
-                                <Link href="/en" className="py-2 px-4 hover:text-[#D32928]">English</Link>
-                                <Link href="/ar" className="py-2 px-4 hover:text-[#D32928]">العربية</Link>
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2">
+                                    <Globe className="h-5 w-5"/>
+                                    <span className="text-lg">{isArabic ? 'اللغة' : 'Language'}</span>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <Link
+                                        href="/en"
+                                        className="py-2 px-4 hover:text-[#D32928] flex items-center justify-between"
+                                    >
+                                        English
+                                        {!isArabic && <Check className="h-4 w-4" />}
+                                    </Link>
+                                    <Link
+                                        href="/ar"
+                                        className="py-2 px-4 hover:text-[#D32928] flex items-center justify-between"
+                                    >
+                                        العربية
+                                        {isArabic && <Check className="h-4 w-4" />}
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </Accordion>

@@ -18,8 +18,9 @@ export default {
   			],
   			quicksand: [
   				'var(--font-quicksand)'
-  			]
-  		},
+  			],
+			kufi: ["var(--font-noto-kufi-arabic)"]
+		},
   		textColor: {
   			blood: '#D32928'
   		},
