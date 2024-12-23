@@ -5,7 +5,7 @@ export async function getBlocks(locale: string): Promise<BlocksResponse> {
         `https://admin.albudoor-hospital.iq/api/block?populate[service][populate]=*&locale=${locale}`
         , {
             next: {
-                revalidate: 60
+                tags: ['blocks']
             }
         })
     return res.json();

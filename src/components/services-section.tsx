@@ -14,14 +14,14 @@ export default async function MedicalServices({data}: {data: ServiceResponse}) {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
                 {data.data.services.map((service) => (
                     <Card
                         key={service.id}
-                        className="p-8 transition-transform hover:scale-105"
+                        className="p-8 transition-transform hover:scale-105 h-full"
                     >
-                        <div className="flex flex-col items-center gap-6">
-                            <div className="w-12 h-12 relative">
+                        <div className="flex flex-col items-center gap-6 h-full">
+                            {service.icon && <div className="size-12 relative">
                                 <CustomImage
                                     src={service.icon.url}
                                     alt="service icon"
@@ -29,7 +29,7 @@ export default async function MedicalServices({data}: {data: ServiceResponse}) {
                                     className="object-contain"
                                     aria-hidden="true"
                                 />
-                            </div>
+                            </div>}
                             <h3 className="text-lg font-quicksand text-[#2E313A] text-center">
                                 {service.title}
                             </h3>

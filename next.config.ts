@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
     },
   experimental: {
       reactCompiler: true,
-      scrollRestoration: true
+      scrollRestoration: true,
+      inlineCss: true,
   }
 };
 

@@ -5,7 +5,7 @@ export async function getContent(locale: string): Promise<ContentResponse> {
         `https://admin.albudoor-hospital.iq/api/content?populate=*&locale=${locale}`
         , {
             next: {
-                revalidate: 60
+                tags: ['content']
             }
         })
     return res.json();

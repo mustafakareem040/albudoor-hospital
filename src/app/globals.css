@@ -9,21 +9,23 @@ body {
 .image-style-side {
   float: right;
   margin-top: 0 !important;
+  transform: translateY(-50%);
   margin-left: 2rem;
-}
-figure {
-  width: 50%;
+  max-width: 768px;
 }
 .image img {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 h1, strong {
   font-weight: 600 !important;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   figure {
     width: 100% !important;
+  }
+  .image-style-side {
+    transform: translateY(-0);
   }
 }
 @layer base {

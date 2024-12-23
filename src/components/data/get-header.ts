@@ -5,7 +5,7 @@ export async function getHeader(locale: string): Promise<Header> {
         `https://admin.albudoor-hospital.iq/api/header?populate[logo][populate]=*&populate[navbar][populate]=*&locale=${locale}`
     , {
             next: {
-                revalidate: 60
+                tags: ['header']
             }
         })
     return res.json();

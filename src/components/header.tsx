@@ -3,13 +3,19 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import HeaderData from "@/components/types/header";
 import CustomImage from "@/components/utils/image";
-import {ChevronDown, Globe} from "lucide-react";
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
-import {Button} from "@/components/ui/button";
+import { ChevronDown, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { MobileMenu } from "@/components/mobile-menu";
 
 const Header = ({ items }: { items: HeaderData }) => {
     return (
-        <header className="flex py-4 items-center w-full justify-around">
+        <header className="flex py-4 items-center w-full justify-between px-4 md:justify-around">
             <Link href="/" aria-label="Home">
                 <CustomImage
                     src={items.data.logo.url}
@@ -21,29 +27,22 @@ const Header = ({ items }: { items: HeaderData }) => {
                 />
             </Link>
 
-            <nav className="py-10 flex items-center space-x-6" role="navigation">
+            <nav className="hidden md:flex items-center space-x-8" role="navigation">
                 {items.data.navbar.map((item) => (
                     item.children?.length ? (
                         <div key={item.id} className="group relative">
                             <button
                                 className={cn(
-                                    "text-lg px-4 py-2 rounded-md inline-flex items-center",
-                                    "focus-visible:ring-2 focus-visible:ring-offset-2",
-                                    "hover:text-[#D32928] transition-colors duration-200",
-                                    item.props?.color ? `text-${item.props.color}` : 'text-[#3F3F3F]',
+                                    "text-lg inline-flex items-center transition-colors duration-200 hover:text-[#D32928]",
+                                    "focus-visible:ring-2 focus-visible:ring-offset-2 rounded",
+                                    item.props?.color ? `text-[${item.props.color}]` : 'text-[#3F3F3F]',
                                     item.props?.fontWeight ? `font-[${item.props.fontWeight}]` : 'font-medium'
                                 )}
                             >
                                 {item.title}
-                                <svg className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
-                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd"
-                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                          clipRule="evenodd"/>
-                                </svg>
+                                <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                             </button>
-                            <div
-                                className="absolute z-50 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 mt-1 w-48 origin-top-right transition-all duration-300 ease-out">
+                            <div className="absolute z-50 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 mt-1 w-48 origin-top-right transition-all duration-300 ease-out">
                                 <div className="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
                                     {item.children.map((child) => (
                                         <Link
@@ -73,8 +72,9 @@ const Header = ({ items }: { items: HeaderData }) => {
                     )
                 ))}
             </nav>
+
             <div className="hidden md:flex items-center space-x-2">
-                <Globe className="w-6 h-6"/>
+                <Globe width={24} height={24}/>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="font-medium text-lg">
@@ -92,6 +92,7 @@ const Header = ({ items }: { items: HeaderData }) => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+            <MobileMenu items={items} />
         </header>
     );
 };

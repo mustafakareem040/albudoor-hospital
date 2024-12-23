@@ -5,7 +5,7 @@ export async function getHero(locale: string): Promise<HeroData> {
         `https://admin.albudoor-hospital.iq/api/hero?populate=*&locale=${locale}`
         , {
             next: {
-                revalidate: 60
+                tags: ['hero']
             }
         })
     return res.json();
