@@ -15,7 +15,7 @@ import { MobileMenu } from "@/components/mobile-menu";
 
 const Header = ({ items }: { items: HeaderData }) => {
     return (
-        <header className="flex py-4 items-center w-full justify-between px-4 md:justify-around">
+        <header className="flex py-4 items-center w-full justify-between px-4 lg:justify-around">
             <Link href="/" aria-label="Home">
                 <CustomImage
                     src={items.data.logo.url}
@@ -27,7 +27,7 @@ const Header = ({ items }: { items: HeaderData }) => {
                 />
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-8" role="navigation">
+            <nav className="hidden lg:flex items-center space-x-8" role="navigation">
                 {items.data.navbar.map((item) => (
                     item.children?.length ? (
                         <div key={item.id} className="group relative">
@@ -73,7 +73,7 @@ const Header = ({ items }: { items: HeaderData }) => {
                 ))}
             </nav>
 
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden lg:flex items-center space-x-2">
                 <Globe width={24} height={24}/>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

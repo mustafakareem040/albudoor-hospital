@@ -24,7 +24,7 @@ export const MobileMenu = ({ items }: { items: HeaderData }) => {
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-                <button className="md:hidden">
+                <button className="lg:hidden">
                     <Menu width={32} height={32}/>
                 </button>
             </SheetTrigger>
