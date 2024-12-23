@@ -14,19 +14,26 @@ body {
   margin-left: 2rem;
   max-width: 768px;
 }
-
+[dir="rtl"] .image-style-side {
+  float: left;
+  margin-left: 0;
+  margin-right: 2rem;
+}
 .image img {
   border-radius: 10px;
 }
 
 h1, strong {
+  max-width: 60%;
   font-weight: 600 !important;
+
 }
 
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem !important;
     line-height: 1.25 !important;
+    max-width: 100%;
   }
 
   h2 {
